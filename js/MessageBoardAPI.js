@@ -14,7 +14,7 @@ class MessageBoardAPI {
     this.comments.push({
       text,
       id,
-      timestamp
+      timestamp,
     });
     return this.comments;
   }
@@ -62,9 +62,8 @@ class MessageBoardAPI {
    * @returns {array} Filtered array of comment objects
    */
   filterCommentsByText(substring = '') {
-    return this.comments.filter(comment =>
-      comment.text.toLowerCase().includes(substring.toLowerCase())
-    );
+    console.log('server');
+    return this.comments.filter(comment => comment.text.toLowerCase().includes(substring.toLowerCase()));
   }
 }
 
@@ -75,26 +74,26 @@ export const commentData = [
   {
     text: 'Love this!',
     id: 1,
-    timestamp: 1549581565
+    timestamp: 1549581565,
   },
   {
     text: 'Super good',
     id: 2,
-    timestamp: 1549577965
+    timestamp: 1549577965,
   },
   {
     text: 'You are the best',
     id: 3,
-    timestamp: 1549495165
+    timestamp: 1549495165,
   },
   {
     text: 'Ramen is my fav food ever',
     id: 4,
-    timestamp: 1548976765
+    timestamp: 1548976765,
   },
   {
     text: 'Nice Nice Nice!',
     id: 5,
-    timestamp: 1546903165
-  }
+    timestamp: 1546903165,
+  },
 ];

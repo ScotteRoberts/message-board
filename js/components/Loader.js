@@ -21,17 +21,9 @@ export default class Loader extends HTMLElement {
   }
 
   render() {
-    if (this.loading) {
-      this.innerHTML = `
+    this.innerHTML = `
       <div class='wonky-spinner'></div>
-      <h2>Loading</h2>`;
-    } else {
-      this.innerHTML = '';
-    }
-  }
-
-  // Listens for changes on the "obervedAttributes".
-  attributeChangedCallback(attributeName, oldValue, newValue) {
-    this.render();
+      <h2>Loading</h2>
+    `;
   }
 }

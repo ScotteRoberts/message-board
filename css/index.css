@@ -1,4 +1,5 @@
 @import "components/MessageBoardApp.css";
+@import "components/Loader.css";
 
 html,
 body {

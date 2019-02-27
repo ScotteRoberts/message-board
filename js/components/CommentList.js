@@ -1,6 +1,6 @@
 export default class CommentList extends HTMLElement {
   static get observedAttributes() {
-    return ['comments', 'searchText'];
+    return ['comments', 'search'];
   }
 
   get comments() {
@@ -15,15 +15,15 @@ export default class CommentList extends HTMLElement {
     this.setAttribute('comments', JSON.stringify(value));
   }
 
-  get searchText() {
-    if (this.hasAttribute('searchText')) {
-      return JSON.parse(this.getAttribute('searchText'));
+  get search() {
+    if (this.hasAttribute('search')) {
+      return JSON.parse(this.getAttribute('search'));
     }
     return '';
   }
 
-  set searchText(value) {
-    this.setAttribute('searchText', JSON.stringify(value));
+  set search(value) {
+    this.setAttribute('search', JSON.stringify(value));
   }
 
   connectedCallback() {
@@ -32,9 +32,8 @@ export default class CommentList extends HTMLElement {
 
   render() {
     this.innerHTML = '';
-    console.log(this.searchText);
     this.comments
-      .filter(comment => comment.text.toLowerCase().includes(this.searchText.toLowerCase()))
+      .filter(comment => comment.text.toLowerCase().includes(this.search.toLowerCase()))
       .forEach(comment => {
         // TODO: Filter comments here with a substring that we pass down from the input.
 
@@ -52,7 +51,6 @@ export default class CommentList extends HTMLElement {
 
   // Listens for changes on the "obervedAttributes".
   attributeChangedCallback(attributeName, oldValue, newValue) {
-    console.log(attributeName);
     this.render();
   }
 }

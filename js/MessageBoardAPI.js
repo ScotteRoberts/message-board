@@ -10,6 +10,7 @@ function wait(ms) {
 class MessageBoardAPI {
   constructor(comments = []) {
     this.comments = comments;
+    this.url = 'https://roberts-express-codealong.herokuapp.com/api/comments/';
   }
 
   /**
@@ -17,9 +18,7 @@ class MessageBoardAPI {
    */
   getComments() {
     // return wait(1000).then(() => this.comments);
-    return fetch('https://roberts-express-codealong.herokuapp.com/api/comments').then(response =>
-      response.json()
-    );
+    return fetch(this.url).then(response => response.json());
   }
 
   /**
@@ -32,7 +31,7 @@ class MessageBoardAPI {
       text,
     };
 
-    return fetch('https://roberts-express-codealong.herokuapp.com/api/comments', {
+    return fetch(this.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,7 +57,7 @@ class MessageBoardAPI {
    * @returns {Promise} Updated comments array
    */
   removeComment(id) {
-    return fetch(`https://roberts-express-codealong.herokuapp.com/api/comments/${id}`, {
+    return fetch(`${this.url}${id}`, {
       method: 'DELETE',
     }).then(response => response.json());
   }
@@ -86,10 +85,7 @@ class MessageBoardAPI {
    * @returns {Promise} Filtered array of comment objects
    */
   filterCommentsByText(substring = '') {
-    console.log('server');
-    return wait(1000).then(() =>
-      this.comments.filter(comment => comment.text.toLowerCase().includes(substring.toLowerCase()))
-    );
+    return fetch(`${this.url}?filter=${substring}`).then(response => response.json());
   }
 }
 

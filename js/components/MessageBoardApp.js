@@ -102,16 +102,16 @@ class MessageBoardApp extends HTMLElement {
     this.setState({ loading: true });
     const commentText = new FormData(event.target).get('comment');
     event.target.reset();
-    const data = await this.api.addComment(commentText);
-    this.setState({ comments: data.comments, loading: false });
+    const responseBody = await this.api.addComment(commentText);
+    this.setState({ comments: responseBody.comments, loading: false });
   };
 
   handleRemoveComment = async event => {
     this.setState({ loading: true });
     const confirmed = window.confirm(`Really delete "${event.detail}" ?`);
     if (confirmed) {
-      const data = await this.api.removeComment(event.target.comment.id);
-      this.setState({ comments: data.comments, loading: false });
+      const responseBody = await this.api.removeComment(event.target.comment.id);
+      this.setState({ comments: responseBody.comments, loading: false });
     }
   };
 }

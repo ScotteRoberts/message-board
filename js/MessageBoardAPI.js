@@ -12,8 +12,14 @@ class MessageBoardAPI {
     this.comments = comments;
   }
 
+  /**
+   * @returns {Object} Comments list
+   */
   getComments() {
-    return wait(1000).then(() => this.comments);
+    // return wait(1000).then(() => this.comments);
+    return fetch('https://roberts-express-codealong.herokuapp.com/api/comments').then(response =>
+      response.json()
+    );
   }
 
   /**
@@ -22,14 +28,17 @@ class MessageBoardAPI {
    * @returns {Promise} Updated comments array
    */
   addComment(text) {
-    const id = this.comments.length > 0 ? this.comments[this.comments.length - 1].id + 1 : 0;
-    const timestamp = Date.now();
-    this.comments.push({
+    const body = {
       text,
-      id,
-      timestamp,
-    });
-    return wait(1000).then(() => this.comments);
+    };
+
+    return fetch('https://roberts-express-codealong.herokuapp.com/api/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    }).then(response => response.json());
   }
 
   /**
@@ -49,9 +58,15 @@ class MessageBoardAPI {
    * @returns {Promise} Updated comments array
    */
   removeComment(id) {
-    const index = this.comments.findIndex(comment => comment.id === id);
-    this.comments.splice(index, 1);
-    return wait(1000).then(() => this.comments);
+    // const index = this.comments.findIndex(comment => comment.id === id);
+    // this.comments.splice(index, 1);
+    return fetch(`https://roberts-express-codealong.herokuapp.com/api/comments/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json());
+    // return wait(1000).then(() => this.comments);
   }
 
   /**

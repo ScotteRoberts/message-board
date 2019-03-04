@@ -66,12 +66,21 @@ class MessageBoardApp extends HTMLElement {
         <message-board-loader loading='true'></message-board-loader>
     `;
 
-    this.querySelector('message-board-comment-list').setAttribute('comments', JSON.stringify(this.state.comments));
-    this.querySelector('message-board-comment-list').setAttribute('search', JSON.stringify(this.state.search));
+    this.querySelector('message-board-comment-list').setAttribute(
+      'comments',
+      JSON.stringify(this.state.comments)
+    );
+    this.querySelector('message-board-comment-list').setAttribute(
+      'search',
+      JSON.stringify(this.state.search)
+    );
 
     // add event listeners
     this.querySelector('nav form').addEventListener('submit', this.handleSearchSubmit);
-    this.querySelector('nav form input').addEventListener('input', this.handleResponsiveSearchSubmit);
+    this.querySelector('nav form input').addEventListener(
+      'input',
+      this.handleResponsiveSearchSubmit
+    );
     this.querySelector('.add-comment form').addEventListener('submit', this.handleAddComment);
   }
 
@@ -93,16 +102,17 @@ class MessageBoardApp extends HTMLElement {
     this.setState({ loading: true });
     const commentText = new FormData(event.target).get('comment');
     event.target.reset();
-    const updatedComments = await this.api.addComment(commentText);
-    this.setState({ comments: updatedComments, loading: false });
+    const data = await this.api.addComment(commentText);
+    this.setState({ comments: data.comments, loading: false });
   };
 
   handleRemoveComment = async event => {
     this.setState({ loading: true });
     const confirmed = window.confirm(`Really delete "${event.detail}" ?`);
     if (confirmed) {
-      const updatedComments = await this.api.removeComment(event.target.comment.id);
-      this.setState({ comments: updatedComments, loading: false });
+      const data = await this.api.removeComment(event.target.comment.id);
+      console.log(data.comments);
+      this.setState({ comments: data.comments, loading: false });
     }
   };
 }

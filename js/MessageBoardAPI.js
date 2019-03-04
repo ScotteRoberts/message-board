@@ -58,15 +58,9 @@ class MessageBoardAPI {
    * @returns {Promise} Updated comments array
    */
   removeComment(id) {
-    // const index = this.comments.findIndex(comment => comment.id === id);
-    // this.comments.splice(index, 1);
     return fetch(`https://roberts-express-codealong.herokuapp.com/api/comments/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }).then(response => response.json());
-    // return wait(1000).then(() => this.comments);
   }
 
   /**

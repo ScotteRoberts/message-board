@@ -111,7 +111,6 @@ class MessageBoardApp extends HTMLElement {
     const confirmed = window.confirm(`Really delete "${event.detail}" ?`);
     if (confirmed) {
       const data = await this.api.removeComment(event.target.comment.id);
-      console.log(data.comments);
       this.setState({ comments: data.comments, loading: false });
     }
   };
